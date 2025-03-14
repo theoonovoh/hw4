@@ -4,21 +4,23 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h1><%= @place["name"] %></h1>
-  <a href="/entries/new?place_id=<%= @place["id"] %>" class="btn btn-primary">New Entry</a>
+  <a href="/entries/new?place_id=<%= @place["id"] %>" class="btn btn-primary">New Post</a>
 </div>
 
-<h2 class="mb-3">My Entries</h2>
+
 
 <div class="row g-4">
   <% for entry in @entries %>
     <div class="col-md-4 mb-4">
       <div class="card h-100">
+        <div class="card-header">
+          <h3 class="card-title h5 mb-1"><%= entry["title"] %></h3>
+          <h4 class="card-subtitle text-muted h6 mb-0"><%= entry["occurred_on"] %></h4>
+        </div>
         <% if entry.respond_to?(:image) && entry.image.attached? %>
           <%= image_tag entry.image, class: "card-img-top" %>
         <% end %>
         <div class="card-body">
-          <h3 class="card-title h5"><%= entry["title"] %></h3>
-          <h4 class="card-subtitle mb-2 text-muted h6"><%= entry["occurred_on"] %></h4>
           <p class="card-text"><%= entry["description"] %></p>
         </div>
       </div>

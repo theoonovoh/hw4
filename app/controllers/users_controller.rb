@@ -1,22 +1,22 @@
 class UsersController < ApplicationController
   def new
+    @user = User.new  # Initialize the user for the form
   end
 
   def create
-    @user = User.new
-    @user["username"] = params["username"]
-    @user["email"] = params["email"]
-    @user["password"] = params["password"]
-    @user.save
+    @user = User.new(user_params)
     
     if @user.save
-      # Log the user in after successful signup
       session[:user_id] = @user.id
-    redirect_to "/places" 
-    
-  else
-      # If there are validation errors, re-render the signup form
+      redirect_to places_path, notice: "Account created successfully!"
+    else
       render :new
     end
+  end
+  
+  private
+  
+  def user_params
+    params.require(:user).permit(:username, :email, :password)
   end
 end

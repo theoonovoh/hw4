@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+  before_action :authenticate_user, except: [:index]
 
   def index
     @places = Place.all
@@ -6,10 +7,12 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find_by({ "id" => params["id"] })
-    @entries = Entry.where({ "place_id" => @place["id"] })
+    # Only show entries belonging to the current user
+    @entries = Entry.where({ "place_id" => @place["id"], "user_id" => @current_user["id"] })
   end
 
   def new
+    @place = Place.new
   end
 
   def create
@@ -18,5 +21,4 @@ class PlacesController < ApplicationController
     @place.save
     redirect_to "/places"
   end
-
 end

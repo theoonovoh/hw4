@@ -22,4 +22,7 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  database: Places_production
+  username: Places_final
+  password: <%= ENV["Places_DATABASE_PASSWORD"] %>

@@ -54,9 +54,7 @@ Rails.application.configure do
     generator.test_framework nil
   end
   
-  config.active_storage.service = :local
-
-  config.hosts = nil
+    config.hosts = nil
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
@@ -69,4 +67,7 @@ Rails.application.configure do
   
   # So we don't get the "Cannot render console" message in Gitpod
   config.web_console.whiny_requests = false
+
+  config.active_storage.service = :local
+
 end
